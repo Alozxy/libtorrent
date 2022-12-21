@@ -4837,7 +4837,7 @@ namespace {
 		TORRENT_ASSERT(m_super_seeding);
 
 		// do a linear search from the first piece
-		int min_availability = 9999;
+		int max_availability = 0;
 		std::vector<piece_index_t> avail_vec;
 		for (auto const i : m_torrent_file->piece_range())
 		{
@@ -4848,22 +4848,19 @@ namespace {
 			{
 				if (pc->super_seeded_piece(i))
 				{
-					// avoid super-seeding the same piece to more than one
-					// peer if we can avoid it. Do this by artificially
-					// increase the availability
-					availability = 999;
+					++availability;
 					break;
 				}
 				if (pc->has_piece(i)) ++availability;
 			}
-			if (availability > min_availability) continue;
-			if (availability == min_availability)
+			if (availability < max_availability) continue;
+			if (availability == max_availability)
 			{
 				avail_vec.push_back(i);
 				continue;
 			}
-			TORRENT_ASSERT(availability < min_availability);
-			min_availability = availability;
+			TORRENT_ASSERT(availability < max_availability);
+			max_availability = availability;
 			avail_vec.clear();
 			avail_vec.push_back(i);
 		}
