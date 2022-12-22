@@ -4851,7 +4851,7 @@ namespace {
 				if (pc->super_seeded_piece(i))
 				{
 					++availability;
-					break;
+					continue;
 				}
 				if (pc->has_piece(i)) ++availability;
 			}
@@ -4861,7 +4861,7 @@ namespace {
 				avail_vec.push_back(i);
 				continue;
 			}
-			TORRENT_ASSERT(availability < max_availability);
+			TORRENT_ASSERT(availability > max_availability);
 			max_availability = availability;
 			avail_vec.clear();
 			avail_vec.push_back(i);
