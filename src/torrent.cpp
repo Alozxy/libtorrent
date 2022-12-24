@@ -4831,7 +4831,7 @@ namespace {
 
 	// TODO: 3 this should return optional<>. piece index -1 should not be
 	// allowed
-	piece_index_t torrent::get_piece_to_super_seed(typed_bitfield<piece_index_t> const& bits)
+	piece_index_t torrent::get_piece_to_super_seed(typed_bitfield<piece_index_t> const& bits, std::array<piece_index_t, 2> m_superseed_piece)
 	{
 		// return a piece with low availability that is not in
 		// the bitfield and that is not currently being super
@@ -4844,6 +4844,9 @@ namespace {
 		for (auto const i : m_torrent_file->piece_range())
 		{
 			if (bits[i]) continue;
+
+			if (m_superseed_piece[0] == i || m_superseed_piece[1] == i)
+				continue;
 
 			int availability = 0;
 			for (auto pc : *this)

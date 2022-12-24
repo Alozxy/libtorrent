@@ -2294,9 +2294,9 @@ namespace {
 			m_sent_bitfield = true;
 
 			// bootstrap super-seeding by sending two have message
-			piece_index_t piece = t->get_piece_to_super_seed(get_bitfield());
+			piece_index_t piece = t->get_piece_to_super_seed(get_bitfield(), m_superseed_piece);
 			if (piece >= piece_index_t(0)) superseed_piece(piece_index_t(-1), piece);
-			piece = t->get_piece_to_super_seed(get_bitfield());
+			piece = t->get_piece_to_super_seed(get_bitfield(), m_superseed_piece);
 			if (piece >= piece_index_t(0)) superseed_piece(piece_index_t(-1), piece);
 			return;
 		}

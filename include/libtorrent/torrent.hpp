@@ -824,7 +824,7 @@ namespace libtorrent {
 		}
 
 		void set_super_seeding(bool on);
-		piece_index_t get_piece_to_super_seed(typed_bitfield<piece_index_t> const&);
+		piece_index_t get_piece_to_super_seed(typed_bitfield<piece_index_t> const&, std::array<piece_index_t, 2> m_superseed_piece);
 #endif
 
 		// returns true if we have downloaded the given piece

@@ -1995,7 +1995,7 @@ namespace libtorrent {
 			// instead.
 			if (super_seeded_piece(index))
 			{
-				superseed_piece(index, t->get_piece_to_super_seed(m_have_piece));
+				superseed_piece(index, t->get_piece_to_super_seed(m_have_piece, m_superseed_piece));
 			}
 		}
 #endif
@@ -2075,7 +2075,7 @@ namespace libtorrent {
 			{
 				if (!p->super_seeded_piece(index)) continue;
 				if (!p->has_piece(index)) continue;
-				p->superseed_piece(index, t->get_piece_to_super_seed(p->get_bitfield()));
+				p->superseed_piece(index, t->get_piece_to_super_seed(p->get_bitfield(), m_superseed_piece));
 			}
 		}
 #endif // TORRENT_ABI_VERSION
@@ -4860,7 +4860,7 @@ namespace libtorrent {
 		{
 			// maybe we need to try another piece, to see if the peer
 			// become interested in us then
-			superseed_piece(piece_index_t(-1), t->get_piece_to_super_seed(m_have_piece));
+			superseed_piece(piece_index_t(-1), t->get_piece_to_super_seed(m_have_piece, m_superseed_piece));
 		}
 #endif
 
